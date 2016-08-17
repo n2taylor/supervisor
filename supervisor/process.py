@@ -473,7 +473,7 @@ class Subprocess:
             msg = 'unknown problem sending sig %s (%s):%s' % (
                                 self.config.name, self.pid, tb)
             options.logger.critical(msg)
-            self.change_state(ProcessStates.UNKNOWN)
+            self.change_state(ProcessStates.FATAL)
             self.pid = 0
             return msg
 
@@ -521,7 +521,7 @@ class Subprocess:
             self._assertInState(ProcessStates.STARTING)
             self.change_state(ProcessStates.BACKOFF)
 
-        else:
+        elif self.pid != 0:
             # this finish was not the result of a stop request, the
             # program was in the RUNNING state but exited
             # implies RUNNING -> EXITED normally but see next comment
