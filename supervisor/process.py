@@ -435,7 +435,7 @@ class Subprocess:
             msg = 'unknown problem killing %s (%s):%s' % (self.config.name,
                                                           self.pid, tb)
             options.logger.critical(msg)
-            self.change_state(ProcessStates.UNKNOWN)
+            self.change_state(ProcessStates.FATAL)
             self.pid = 0
             self.killing = False
             self.delay = 0
